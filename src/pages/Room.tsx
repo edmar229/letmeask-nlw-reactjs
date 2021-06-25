@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { FormEvent, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 import logoImg from '../assets/images/logo.svg';
 
@@ -17,12 +18,23 @@ type RoomParams = {
 }
 
 export function Room() {
-  const { user } = useAuth();
+  const history = useHistory();
+  const { user, signInWithGoogle, signOut} = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
   const roomId = params.id;
 
   const { title, questions } = useRoom(roomId);
+
+  useEffect(() => {
+    const roomRef = database.ref(`rooms/${roomId}`);
+
+    roomRef.get().then(room => {
+      if(room.val().endedAt) {
+        history.push("/");
+      }
+    });
+  }, [roomId, history]);
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
@@ -65,7 +77,15 @@ export function Room() {
       <header>
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
-          <RoomCode code={roomId} />
+          <div>
+            <RoomCode code={roomId} />
+            { user ? <Button 
+              isOutlined
+              onClick={() => signOut()}
+            >
+              Fazer logout
+            </Button> : <></>}
+          </div>
         </div>
       </header>
 
@@ -89,7 +109,7 @@ export function Room() {
                 <span>{user.name}</span>
               </div>
             ) : (
-              <span>Para enviar uma pergunta, <button>faça seu login</button>.</span>
+              <span>Para enviar uma pergunta, <button onClick={() => signInWithGoogle()}>faça seu login</button>.</span>
             ) }
             <Button type="submit" disabled={!user}>Enviar pergunta</Button>
           </div>

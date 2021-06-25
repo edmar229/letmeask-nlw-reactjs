@@ -1,4 +1,5 @@
 import { useHistory, useParams } from 'react-router-dom'
+import { useState, Fragment } from 'react';
 
 import logoImg from '../assets/images/logo.svg';
 import deleteImg from '../assets/images/delete.svg';
@@ -10,6 +11,7 @@ import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
+import { ModalBox } from '../components/ModalBox';
 
 import '../styles/room.scss';
 
@@ -22,6 +24,8 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
+  const [questionIdModalOpen, setQuestionIdModalOpen] = useState<string | undefined>();
+
   const { title, questions } = useRoom(roomId);
 
   async function handleEndRoom() {
@@ -33,9 +37,7 @@ export function AdminRoom() {
   }
 
   async function handleDeleteQuestion(quesionId: string) {
-    if (window.confirm('Tem certeza que deseja excluir essa pergunta?')) {
-      await database.ref(`rooms/${roomId}/questions/${quesionId}`).remove();
-    }
+    await database.ref(`rooms/${roomId}/questions/${quesionId}`).remove();
   }
 
   async function handleCheckQuestionAsAnswered(quesionId: string) {
@@ -76,38 +78,53 @@ export function AdminRoom() {
         <div className="question-list">
           {questions.map(question => {
             return (
-              <Question
-                key={question.id}
-                content={question.content}
-                author={question.author}
-                isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}
-              >
-                {!question.isHighlighted && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => handleCheckQuestionAsAnswered(question.id)}
-                    >
-                      <img src={checkImg} alt="Marcar pergunta como respondida" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleHighlightQuestion(question.id)}
-                    >
-                      <img src={answerImg} alt="Dar destaque à pergunta" />
-                    </button>
-                  </>
-                )}
-
-                <button
-                  type="button"
-                  onClick={() => handleDeleteQuestion(question.id)}
+              <Fragment key={question.id}>
+                <Question
+                  content={question.content}
+                  author={question.author}
+                  isAnswered={question.isAnswered}
+                  isHighlighted={question.isHighlighted}
                 >
-                  <img src={deleteImg} alt="Remover pergunta" />
-                </button>
-              </Question>
+                  {!question.isHighlighted && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleCheckQuestionAsAnswered(question.id)}
+                      >
+                        <img src={checkImg} alt="Marcar pergunta como respondida" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleHighlightQuestion(question.id)}
+                      >
+                        <img src={answerImg} alt="Dar destaque à pergunta" />
+                      </button>
+                    </>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setQuestionIdModalOpen(question.id)}
+                  >
+                    <img src={deleteImg} alt="Remover pergunta" />
+                  </button>
+                </Question>
+                
+                {/* <Modal 
+                  isOpen={questionIdModalOpen === question.id}
+                  onRequestClose={() => setQuestionIdModalOpen(undefined)}
+                  style={customStyles}
+                >
+                  <button className="exclude" onClick={() => handleDeleteQuestion(question.id)}>Sim, Excluir</button>
+                  <button className="cancel-exclude" onClick={() => setQuestionIdModalOpen(undefined)}>Fechar</button>
+                </Modal> */}
+                <ModalBox
+                  modalIsOpen={questionIdModalOpen === question.id}
+                  confirmModal={() => handleDeleteQuestion(question.id)}
+                  closeModal={() => setQuestionIdModalOpen(undefined)}
+                />
+              </Fragment>
             );
           })}
         </div>
