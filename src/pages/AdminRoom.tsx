@@ -2,6 +2,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useState, Fragment } from 'react';
 
 import logoImg from '../assets/images/logo.svg';
+import logoDarkImg from '../assets/images/logoDarkTheme.svg';
 import deleteImg from '../assets/images/delete.svg';
 import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
@@ -12,6 +13,7 @@ import { RoomCode } from '../components/RoomCode';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 import { ModalBox } from '../components/ModalBox';
+import { useTheme } from '../hooks/useTheme';
 
 import '../styles/room.scss';
 
@@ -23,6 +25,7 @@ export function AdminRoom() {
   const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
+  const { theme } = useTheme();
 
   const [questionIdModalOpen, setQuestionIdModalOpen] = useState<string | undefined>();
 
@@ -53,10 +56,10 @@ export function AdminRoom() {
   }
 
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+          <img src={theme === 'dark' ? logoDarkImg : logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
             <Button 
