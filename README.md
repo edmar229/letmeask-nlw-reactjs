@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+<h1 align="center">
+  <img alt="podcastr" title="podcastr" src="src/assets/images/logo.svg" />
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+ <img src="https://img.shields.io/static/v1?label=NLW&message=06&color=8257E5&labelColor=000000" alt="NLW 06" />
+</p>
 
-## Available Scripts
+<p align="center">
+  <img alt="Podcastr" src=".github/home_light.png" width="100%">
+</p>
 
-In the project directory, you can run:
+<p align="center">
+  <img alt="Podcastr" src=".github/home_dark.png" width="100%">
+</p>
 
-### `yarn start`
+## ✨ Tecnologias
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- [React](https://reactjs.org)
+- [Firebase](https://firebase.google.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SASS](https://sass-lang.com/)
 
-### `yarn test`
+## 💻 Projeto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+O Letmeask é um app onde os usuários podem entrar ou criar suas próprias salas para registrar suas dúvidas durante eventos ao vivo organizados por educadores, dessa forma é bem mais fácil e prático para os participantes tirarem o máximo de proveito do evento.
 
-### `yarn build`
+<p align="center">
+  <img alt="Podcastr" src=".github/admin_room_light.png" width="100%">
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<p align="center">
+  <img alt="Podcastr" src=".github/admin_room_dark.png" width="100%">
+</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🔖 Layout
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/u0BQK8rCf2KgzcukdRRCWh/Letmeask/duplicate). É necessário ter conta no [Figma](http://figma.com/) para acessá-lo.
 
-### `yarn eject`
+## 🚀 Como executar
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Crie e configure o projeto no Firebase
+- Instale as dependências com `yarn`
+- Execute o projeto localmente com `yarn start`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Feito durante o aevento NLW Together, organizado pela Rocketseat, [Link da comunidade!](https://discordapp.com/invite/gCRAFhc)
